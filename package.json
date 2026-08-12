@@ -1,0 +1,36 @@
+{
+  "name": "real-estate-panel",
+  "version": "1.0.0",
+  "description": "پنل حرفه‌ای مدیریت املاک با تم طلایی-مشکی | بدون نیاز به R2",
+  "main": "workers.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "kv:put": "wrangler kv:key put --binding=KV"
+  },
+  "keywords": [
+    "real-estate",
+    "panel",
+    "dashboard",
+    "cloudflare",
+    "workers",
+    "kv",
+    "property-management"
+  ],
+  "author": "Real Estate Ekhlas",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/real-estate-panel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/real-estate-panel/issues"
+  },
+  "homepage": "https://github.com/yourusername/real-estate-panel#readme"
+}
