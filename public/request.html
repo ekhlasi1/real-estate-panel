@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>درخواست کارشناسی ملک | املاک اخلاصی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-crown"></i>
+                <span>املاک <strong>اخلاصی</strong></span>
+            </a>
+            <nav class="nav" id="mainNav">
+                <a href="/#properties">ملک‌ها</a>
+                <a href="/#advisors">مشاورین</a>
+                <a href="/commission.html">کمیسیون</a>
+                <a href="/#about">درباره ما</a>
+                <a href="/request.html" class="active">درخواست کارشناسی</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-free" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-plus-circle"></i> ثبت رایگان آگهی
+                </button>
+                <button class="btn-login" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-user"></i> ورود
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="request-section">
+        <div class="request-particles">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="container">
+            <div class="request-wrapper">
+                <div class="request-box glass">
+                    <div class="request-header">
+                        <div class="request-icon"><i class="fas fa-handshake"></i></div>
+                        <h1>درخواست <span>کارشناسی</span> ملک</h1>
+                        <p>کارشناسان حرفه‌ای ما در اسرع وقت با شما تماس می‌گیرند</p>
+                    </div>
+                    <form id="requestForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> نام</label>
+                                <input type="text" id="requestFirstName" placeholder="نام خود را وارد کنید" required />
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> نام خانوادگی</label>
+                                <input type="text" id="requestLastName" placeholder="نام خانوادگی خود را وارد کنید" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> شماره تماس</label>
+                                <input type="tel" id="requestPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required />
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-building"></i> نوع ملک</label>
+                                <select id="requestType">
+                                    <option value="آپارتمان">آپارتمان</option>
+                                    <option value="ویلا">ویلا</option>
+                                    <option value="زمین">زمین</option>
+                                    <option value="دفتر کار">دفتر کار</option>
+                                    <option value="سایر">سایر</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group full">
+                            <label><i class="fas fa-comment"></i> توضیحات</label>
+                            <textarea id="requestDesc" rows="4" placeholder="توضیحات بیشتر در مورد ملک مورد نظر خود را وارد کنید..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-request-submit full">
+                            <i class="fas fa-paper-plane"></i> ارسال درخواست کارشناسی
+                        </button>
+                        <div class="request-success" id="requestSuccess" style="display:none;">
+                            <i class="fas fa-check-circle"></i>
+                            <p>✅ درخواست شما با موفقیت ارسال شد. کارشناسان ما با شما تماس خواهند گرفت.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo"><i class="fas fa-crown"></i> املاک <strong>اخلاصی</strong></a>
+                    <p>۱۴ سال سابقه درخشان در بندرعباس</p>
+                </div>
+                <div class="footer-links">
+                    <h4>دسترسی سریع</h4>
+                    <a href="/#properties">ملک‌ها</a>
+                    <a href="/#advisors">مشاورین</a>
+                    <a href="/commission.html">کمیسیون</a>
+                    <a href="/request.html">درخواست کارشناسی</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>تماس با ما</h4>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۹۷۷۴۷۰۴</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۷۶۰۶۸۶۱</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۳۶۶۸۵۲۵</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 <strong>املاک اخلاصی</strong>. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('requestForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const firstName = document.getElementById('requestFirstName').value.trim();
+            const lastName = document.getElementById('requestLastName').value.trim();
+            const phone = document.getElementById('requestPhone').value.trim();
+            const type = document.getElementById('requestType').value;
+            const desc = document.getElementById('requestDesc').value.trim();
+
+            if (!firstName || !lastName || !phone) {
+                alert('لطفاً نام، نام خانوادگی و شماره تماس را وارد کنید');
+                return;
+            }
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ در حال ارسال...';
+
+            const newRequest = {
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+                name: firstName + ' ' + lastName,
+                phone: phone,
+                type: type,
+                desc: desc || '',
+                status: 'جدید',
+                date: new Date().toLocaleDateString('fa-IR'),
+                time: new Date().toLocaleTimeString('fa-IR'),
+                source: 'درخواست کارشناسی'
+            };
+
+            try {
+                const response = await fetch('/api/requests', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newRequest)
+                });
+
+                if (response.ok) {
+                    document.getElementById('requestSuccess').style.display = 'block';
+                    this.reset();
+                    submitBtn.textContent = '✅ ارسال شد';
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'ارسال درخواست کارشناسی';
+                    }, 3000);
+                } else {
+                    alert('❌ خطا در ارسال درخواست. لطفاً مجدداً تلاش کنید.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'ارسال درخواست کارشناسی';
+                }
+            } catch (error) {
+                alert('❌ خطا در ارتباط با سرور. لطفاً مجدداً تلاش کنید.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ارسال درخواست کارشناسی';
+            }
+        });
+
+        // Menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('open');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+    </script>
+
+</body>
+</html>
