@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>املاک اخلاصی | خرید، فروش و اجاره ملک</title>
+    <meta name="description" content="املاک اخلاصی با تجربه، تخصص و تعهد همراه شما برای خرید، فروش و اجاره بهترین املاک در بندرعباس." />
+    <link rel="canonical" href="https://real-estate-panel.v-ekhlasi1375.workers.dev/" />
+    <meta property="og:title" content="املاک اخلاصی | مرجع تخصصی املاک" />
+    <meta property="og:description" content="زندگی لوکس در خانه‌ی رویایی شما." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://real-estate-panel.v-ekhlasi1375.workers.dev/" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "RealEstateAgent",
+            "name": "املاک اخلاصی",
+            "telephone": "+989179774704",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "بندرعباس، بلوار سیدجمال الدین اسدآبادی، خیابان سیدکامل، نبش کوچه سیدکامل ۲۴",
+                "addressLocality": "بندرعباس",
+                "addressCountry": "IR"
+            }
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@v5.0/fonts/IRANSansWeb.woff2" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>" />
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="preloader-ring"></div>
+        <div class="preloader-text">املاک اخلاصی</div>
+    </div>
+
+    <header class="header" id="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-crown"></i>
+                <span>املاک <strong>اخلاصی</strong></span>
+            </a>
+            <nav class="nav" id="mainNav">
+                <a href="#properties">ملک‌ها</a>
+                <a href="#advisors">مشاورین</a>
+                <a href="/commission.html">کمیسیون</a>
+                <a href="/request.html">کارشناسی</a>
+                <a href="#contact">تماس</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-outline-sm" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-user"></i> ورود
+                </button>
+                <button class="btn-primary" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-plus-circle"></i> ثبت آگهی
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-line"></span>
+                    املاک اخلاصی
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">زندگی لوکس</span>
+                    <span class="title-line gold">در خانه‌ی رویایی شما</span>
+                </h1>
+                <p class="hero-subtitle">
+                    با تجربه، تخصص و تعهد همراه شما<br />
+                    برای خرید، فروش و اجاره بهترین املاک
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary btn-hero" onclick="document.getElementById('properties').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-building"></i> مشاهده ملک‌ها
+                    </button>
+                    <a href="/commission.html" class="btn-gold btn-hero">
+                        <i class="fas fa-calculator"></i> محاسبه کمیسیون
+                    </a>
+                    <a href="/request.html" class="btn-outline btn-hero">
+                        <i class="fas fa-handshake"></i> درخواست کارشناسی
+                    </a>
+                </div>
+                <div class="hero-search">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="جستجوی ملک، منطقه یا کد ملک..." />
+                    </div>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">همه</button>
+                    <button class="filter-tab" data-filter="فروش">فروش</button>
+                    <button class="filter-tab" data-filter="پیش‌فروش">پیش‌فروش</button>
+                    <button class="filter-tab" data-filter="اجاره">اجاره</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="properties" id="properties">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="section-tag">املاک ویژه</span>
+                    <h2>آخرین <span>املاک</span></h2>
+                </div>
+            </div>
+            <div class="property-grid" id="propertyGrid"></div>
+            <div class="load-more" id="loadMore">
+                <button onclick="loadMore()" class="btn-outline">
+                    مشاهده همه ملک‌ها <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="advisors" id="advisors">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="section-tag">مشاورین</span>
+                    <h2>مشاورین <span>ما</span></h2>
+                </div>
+            </div>
+            <div class="advisor-grid" id="advisorGrid"></div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <p class="contact-address">
+                            <i class="fas fa-map-pin"></i>
+                            بندرعباس، بلوار سیدجمال الدین اسدآبادی،<br />
+                            خیابان سیدکامل، نبش کوچه سیدکامل ۲۴
+                        </p>
+                        <a href="#" class="contact-map">مسیریابی</a>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <span>۰۹۱۷۹۷۷۴۷۰۴</span>
+                                <span>۰۹۱۷۷۶۰۶۸۶۱</span>
+                                <span>۰۹۱۷۳۶۶۸۵۲۵</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@ekhlasi-realestate.ir</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-social">
+                    <span class="social-label">ما را دنبال کنید</span>
+                    <p class="social-text">جدیدترین املاک و اخبار املاک اخلاصی را دنبال کنید</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <i class="fas fa-crown"></i>
+                        <span>املاک <strong>اخلاصی</strong></span>
+                    </a>
+                    <p>با تجربه، تخصص و تعهد همراه شما</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>دسترسی سریع</h4>
+                    <a href="#properties">ملک‌ها</a>
+                    <a href="#advisors">مشاورین</a>
+                    <a href="/commission.html">کمیسیون</a>
+                    <a href="/request.html">کارشناسی</a>
+                    <a href="#contact">تماس</a>
+                </div>
+                <div class="footer-links">
+                    <h4>خدمات</h4>
+                    <a href="#">خرید ملک</a>
+                    <a href="#">فروش ملک</a>
+                    <a href="#">اجاره ملک</a>
+                    <a href="#">مشاوره تخصصی</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>تماس با ما</h4>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۹۷۷۴۷۰۴</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۷۶۰۶۸۶۱</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۳۶۶۸۵۲۵</p>
+                    <p><i class="fas fa-envelope"></i> info@ekhlasi-realestate.ir</p>
+                    <p><i class="fas fa-map-pin"></i> بندرعباس، بلوار سیدجمال الدین اسدآبادی، خیابان سیدکامل، نبش کوچه سیدکامل ۲۴</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© ۲۰۲۶ <strong>املاک اخلاصی</strong>. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
