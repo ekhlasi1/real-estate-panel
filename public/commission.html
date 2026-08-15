@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>محاسبه کمیسیون | املاک اخلاصی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-crown"></i>
+                <span>املاک <strong>اخلاصی</strong></span>
+            </a>
+            <nav class="nav" id="mainNav">
+                <a href="/#properties">ملک‌ها</a>
+                <a href="/#advisors">مشاورین</a>
+                <a href="/commission.html" class="active">کمیسیون</a>
+                <a href="/#about">درباره ما</a>
+                <a href="/request.html">درخواست کارشناسی</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-free" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-plus-circle"></i> ثبت رایگان آگهی
+                </button>
+                <button class="btn-login" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-user"></i> ورود
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- COMMISSION PAGE -->
+    <section class="commission-page">
+        <div class="commission-page-bg">
+            <div class="commission-page-particles">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="commission-page-wrapper">
+                <div class="commission-page-header">
+                    <span class="tag">💎 ماشین حساب حرفه‌ای</span>
+                    <h1>محاسبه <span>کمیسیون</span> اجاره</h1>
+                    <p>کمیسیون را به‌صورت دقیق و لحظه‌ای محاسبه کنید</p>
+                </div>
+
+                <div class="commission-page-box glass">
+                    <div class="commission-page-form">
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill-wave"></i> مبلغ رهن (تومان)</label>
+                            <input type="text" id="commissionRentPage" placeholder="مثال: ۵۰,۰۰۰,۰۰۰" />
+                            <div class="input-hint">تا ۵۰ میلیون تومان: ۲٪ | مازاد: ۱٪</div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> اجاره ماهانه (تومان)</label>
+                            <input type="text" id="commissionMonthlyPage" placeholder="مثال: ۲,۵۰۰,۰۰۰" />
+                            <div class="input-hint">کمیسیون اجاره = (اجاره × ۲) ÷ ۳</div>
+                        </div>
+                        <button class="btn-primary full" onclick="calculateCommissionPage()">
+                            <i class="fas fa-calculator"></i> محاسبه کمیسیون
+                        </button>
+                    </div>
+
+                    <div class="commission-page-result" id="commissionPageResult" style="display:none;">
+                        <div class="result-header">
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>نتیجه محاسبه</h3>
+                        </div>
+                        <div class="result-grid">
+                            <div class="result-item total">
+                                <span class="label">کل کمیسیون</span>
+                                <span class="value" id="resultTotalPage">۰</span>
+                            </div>
+                            <div class="result-item owner">
+                                <span class="label"><i class="fas fa-user-tie"></i> سهم موجر</span>
+                                <span class="value" id="resultOwnerPage">۰</span>
+                            </div>
+                            <div class="result-item tenant">
+                                <span class="label"><i class="fas fa-user"></i> سهم مستاجر</span>
+                                <span class="value" id="resultTenantPage">۰</span>
+                            </div>
+                        </div>
+                        <div class="result-details" id="resultDetailsPage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo"><i class="fas fa-crown"></i> املاک <strong>اخلاصی</strong></a>
+                    <p>سابقه درخشان در بندرعباس</p>
+                </div>
+                <div class="footer-links">
+                    <h4>دسترسی سریع</h4>
+                    <a href="/#properties">ملک‌ها</a>
+                    <a href="/#advisors">مشاورین</a>
+                    <a href="/commission.html">کمیسیون</a>
+                    <a href="/request.html">درخواست کارشناسی</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>تماس با ما</h4>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۹۷۷۴۷۰۴</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۷۶۰۶۸۶۱</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۳۶۶۸۵۲۵</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 <strong>املاک اخلاصی</strong>. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ====== helpers ======
+        function persianToEnglishNumber(str) {
+            if (!str) return '';
+            const persianNumbers = /[\u06F0-\u06F9]/g;
+            const englishNumbers = {
+                '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+                '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9'
+            };
+            return str.replace(persianNumbers, function(match) {
+                return englishNumbers[match];
+            });
+        }
+
+        function toPersianNumber(num) {
+            if (num === undefined || num === null || isNaN(num)) return '';
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return String(num).replace(/\d/g, function(match) {
+                return persianDigits[parseInt(match)];
+            });
+        }
+
+        function formatNumberWithCommas(num) {
+            if (num === undefined || num === null || isNaN(num)) return '';
+            const parts = String(num).split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+
+        function formatPrice(num) {
+            if (!num && num !== 0) return '۰';
+            const number = Number(num);
+            if (isNaN(number)) return '۰';
+            const formatted = formatNumberWithCommas(number);
+            return toPersianNumber(formatted);
+        }
+
+        function formatNumberInput(e) {
+            const input = e.target;
+            let value = input.value;
+            value = persianToEnglishNumber(value);
+            value = value.replace(/[^0-9]/g, '');
+            if (value) {
+                const number = Number(value);
+                const formatted = formatNumberWithCommas(number);
+                input.value = toPersianNumber(formatted);
+            } else {
+                input.value = '';
+            }
+        }
+
+        // ====== Commission Calculator ======
+        function calculateCommissionPage() {
+            const rentInput = document.getElementById('commissionRentPage');
+            const monthlyInput = document.getElementById('commissionMonthlyPage');
+            const resultDiv = document.getElementById('commissionPageResult');
+
+            const rentValue = persianToEnglishNumber(rentInput.value.replace(/,/g, '').trim());
+            const monthlyValue = persianToEnglishNumber(monthlyInput.value.replace(/,/g, '').trim());
+
+            const rent = parseFloat(rentValue);
+            const monthly = parseFloat(monthlyValue);
+
+            if (isNaN(rent)) {
+                alert('لطفاً مبلغ رهن را به‌درستی وارد کنید (مثال: ۵۰,۰۰۰,۰۰۰ یا 50000000)');
+                rentInput.focus();
+                return;
+            }
+            if (isNaN(monthly)) {
+                alert('لطفاً مبلغ اجاره ماهانه را به‌درستی وارد کنید (مثال: ۲,۵۰۰,۰۰۰ یا 2500000)');
+                monthlyInput.focus();
+                return;
+            }
+
+            if (rent < 0) {
+                alert('مبلغ رهن نمی‌تواند منفی باشد');
+                rentInput.focus();
+                return;
+            }
+            if (monthly < 0) {
+                alert('مبلغ اجاره نمی‌تواند منفی باشد');
+                monthlyInput.focus();
+                return;
+            }
+
+            let commissionFromRent = 0;
+            if (rent <= 50000000) {
+                commissionFromRent = rent * 0.02;
+            } else {
+                commissionFromRent = (50000000 * 0.02) + ((rent - 50000000) * 0.01);
+            }
+
+            const commissionFromMonthly = (monthly * 2) / 3;
+            const totalBeforeTax = commissionFromRent + commissionFromMonthly;
+            const tax = totalBeforeTax * 0.10;
+            const totalCommission = totalBeforeTax + tax;
+            const ownerShare = totalCommission / 2;
+            const tenantShare = totalCommission / 2;
+
+            document.getElementById('resultTotalPage').textContent = formatPrice(Math.round(totalCommission));
+            document.getElementById('resultOwnerPage').textContent = formatPrice(Math.round(ownerShare));
+            document.getElementById('resultTenantPage').textContent = formatPrice(Math.round(tenantShare));
+
+            document.getElementById('resultDetailsPage').innerHTML = `
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;">
+                    <span>کمیسیون رهن (تا ۵۰M: ۲٪ / مازاد: ۱٪)</span>
+                    <span><strong>${formatPrice(Math.round(commissionFromRent))}</strong></span>
+                    <span>کمیسیون اجاره (اجاره × ۲ ÷ ۳)</span>
+                    <span><strong>${formatPrice(Math.round(commissionFromMonthly))}</strong></span>
+                    <span>جمع کمیسیون (بدون مالیات)</span>
+                    <span><strong>${formatPrice(Math.round(totalBeforeTax))}</strong></span>
+                    <span>مالیات (۱۰٪)</span>
+                    <span><strong>${formatPrice(Math.round(tax))}</strong></span>
+                    <span style="color:var(--gold);font-weight:700;">کل کمیسیون نهایی</span>
+                    <span style="color:var(--gold);font-weight:700;">${formatPrice(Math.round(totalCommission))}</span>
+                    <span style="color:#4fc3f7;">سهم موجر (۵۰٪)</span>
+                    <span style="color:#4fc3f7;">${formatPrice(Math.round(ownerShare))}</span>
+                    <span style="color:#81c784;">سهم مستاجر (۵۰٪)</span>
+                    <span style="color:#81c784;">${formatPrice(Math.round(tenantShare))}</span>
+                </div>
+            `;
+
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Input formatting
+        const rentPageInput = document.getElementById('commissionRentPage');
+        const monthlyPageInput = document.getElementById('commissionMonthlyPage');
+
+        if (rentPageInput) {
+            rentPageInput.addEventListener('input', formatNumberInput);
+            rentPageInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') calculateCommissionPage();
+            });
+        }
+
+        if (monthlyPageInput) {
+            monthlyPageInput.addEventListener('input', formatNumberInput);
+            monthlyPageInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') calculateCommissionPage();
+            });
+        }
+
+        // Menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('open');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+    </script>
+
+</body>
+</html>
