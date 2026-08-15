@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>پنل مدیریت | املاک اخلاصی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@v5.0/fonts/IRANSansWeb.woff2" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-crown"></i>
+                <span>پنل <strong>مدیریت</strong></span>
+            </a>
+            <div class="admin-user">
+                <span id="adminUserDisplay"><i class="fas fa-user-circle"></i> مدیر</span>
+                <a href="/change-password.html" class="btn-ghost-sm" title="تغییر رمز">
+                    <i class="fas fa-key"></i>
+                </a>
+                <button class="btn-outline-sm" onclick="logout()" style="padding:2px 14px;font-size:11px;">
+                    <i class="fas fa-sign-out-alt"></i> خروج
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <nav>
+                <a href="#" class="active" data-tab="dashboard">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>داشبورد</span>
+                </a>
+                <a href="#" data-tab="properties">
+                    <i class="fas fa-building"></i>
+                    <span>ملک‌ها</span>
+                </a>
+                <a href="#" data-tab="add-property">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>ملک جدید</span>
+                </a>
+                <a href="#" data-tab="advisors">
+                    <i class="fas fa-users"></i>
+                    <span>مشاورین</span>
+                </a>
+                <a href="#" data-tab="add-advisor">
+                    <i class="fas fa-user-plus"></i>
+                    <span>مشاور جدید</span>
+                </a>
+                <a href="#" data-tab="notes">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>یادداشت‌ها</span>
+                </a>
+                <a href="#" data-tab="contacts">
+                    <i class="fas fa-address-book"></i>
+                    <span>مخاطبین</span>
+                </a>
+                <a href="#" data-tab="requests">
+                    <i class="fas fa-handshake"></i>
+                    <span>درخواست‌ها</span>
+                </a>
+                <a href="#" data-tab="backup">
+                    <i class="fas fa-database"></i>
+                    <span>بکاپ</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+
+            <!-- DASHBOARD -->
+            <section id="tab-dashboard" class="tab-content active">
+                <div class="section-header" style="margin-bottom:12px;">
+                    <h2><i class="fas fa-chart-pie"></i> داشبورد</h2>
+                    <span class="section-tag">آمار لحظه‌ای</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-building"></i>
+                        <div><span id="statTotal">0</span><small>کل ملک‌ها</small></div>
+                    </div>
+                    <div class="stat-card gold">
+                        <i class="fas fa-check-circle"></i>
+                        <div><span id="statActive">0</span><small>موجود</small></div>
+                    </div>
+                    <div class="stat-card sold">
+                        <i class="fas fa-sold"></i>
+                        <div><span id="statSold">0</span><small>فروش رفته</small></div>
+                    </div>
+                    <div class="stat-card rented">
+                        <i class="fas fa-file-signature"></i>
+                        <div><span id="statRented">0</span><small>اجاره رفته</small></div>
+                    </div>
+                </div>
+                <div class="admin-advisors">
+                    <h3 style="font-size:15px;color:var(--gray-800);margin-bottom:10px;"><i class="fas fa-users"></i> مشاورین</h3>
+                    <div id="adminAdvisorGrid" class="advisor-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));"></div>
+                </div>
+            </section>
+
+            <!-- PROPERTIES -->
+            <section id="tab-properties" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-building"></i> مدیریت ملک‌ها</h2>
+                    <button class="btn-primary" onclick="document.querySelector('[data-tab=add-property]').click()">
+                        <i class="fas fa-plus-circle"></i> ملک جدید
+                    </button>
+                </div>
+                <div class="table-container">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>تصویر</th>
+                                    <th>عنوان</th>
+                                    <th>نوع</th>
+                                    <th>قیمت</th>
+                                    <th>مشاور</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="propertyTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADD PROPERTY -->
+            <section id="tab-add-property" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> افزودن ملک جدید</h2>
+                </div>
+                <form id="propertyForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> عنوان ملک</label>
+                            <input type="text" id="propTitle" required placeholder="عنوان ملک را وارد کنید" />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-exchange-alt"></i> نوع معامله</label>
+                            <select id="propType" required onchange="togglePriceFields()">
+                                <option value="فروش">فروش</option>
+                                <option value="پیش‌فروش">پیش‌فروش</option>
+                                <option value="اجاره">اجاره</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="salePriceFields" class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill-wave"></i> قیمت (تومان)</label>
+                            <input type="text" id="propSalePrice" placeholder="مثال: ۲,۵۰۰,۰۰۰,۰۰۰" class="number-input" />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-flag"></i> وضعیت</label>
+                            <select id="propStatus">
+                                <option value="موجود">موجود</option>
+                                <option value="فروش رفته">فروش رفته</option>
+                                <option value="اجاره رفته">اجاره رفته</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="rentPriceFields" class="form-row" style="display:none;">
+                        <div class="form-group">
+                            <label><i class="fas fa-hand-holding-usd"></i> مبلغ رهن (تومان)</label>
+                            <input type="text" id="propRentPrice" placeholder="مثال: ۵۰,۰۰۰,۰۰۰" class="number-input" />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> اجاره ماهانه (تومان)</label>
+                            <input type="text" id="propMonthlyPrice" placeholder="مثال: ۲,۵۰۰,۰۰۰" class="number-input" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user-tie"></i> مشاور</label>
+                            <select id="propAdvisor" required>
+                                <option value="">انتخاب مشاور</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> آدرس</label>
+                            <input type="text" id="propAddress" placeholder="آدرس کامل ملک" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-vector-square"></i> متراژ (متر)</label>
+                            <input type="text" id="propMeterage" placeholder="مثال: ۱۲۰" class="number-input" />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-bed"></i> تعداد خواب</label>
+                            <input type="text" id="propRooms" placeholder="مثال: ۳" class="number-input" />
+                        </div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label><i class="fas fa-align-left"></i> توضیحات</label>
+                        <textarea id="propDesc" rows="3" placeholder="توضیحات کامل ملک..."></textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <label><i class="fas fa-images"></i> تصاویر</label>
+                        <div class="upload-row">
+                            <div class="upload-wrapper">
+                                <button type="button" class="upload-btn">
+                                    <i class="fas fa-cloud-upload-alt"></i> آپلود فایل
+                                </button>
+                                <input type="file" id="propFiles" multiple accept="image/*,video/*" />
+                            </div>
+                            <div class="upload-url">
+                                <span>یا</span>
+                                <input type="text" id="propImageUrl" placeholder="لینک مستقیم عکس (URL)" />
+                            </div>
+                        </div>
+                        <small class="hint" style="font-size:10px;color:var(--gray-400);">می‌توانید فایل آپلود کنید یا لینک مستقیم عکس وارد کنید</small>
+                    </div>
+
+                    <div class="upload-preview" id="uploadPreview"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> ثبت ملک
+                        </button>
+                        <button type="reset" class="btn-outline" onclick="this.closest('form').reset(); document.getElementById('uploadPreview').innerHTML = '';">
+                            <i class="fas fa-undo"></i> بازنشانی
+                        </button>
+                    </div>
+
+                    <div id="uploadStatus" class="upload-status"></div>
+                </form>
+            </section>
+
+            <!-- ADVISORS -->
+            <section id="tab-advisors" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> مشاورین</h2>
+                    <button class="btn-primary" onclick="document.querySelector('[data-tab=add-advisor]').click()">
+                        <i class="fas fa-user-plus"></i> مشاور جدید
+                    </button>
+                </div>
+                <div id="advisorList" class="advisor-grid"></div>
+            </section>
+
+            <!-- ADD ADVISOR -->
+            <section id="tab-add-advisor" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-plus"></i> افزودن مشاور جدید</h2>
+                </div>
+                <form id="advisorForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> نام کامل</label>
+                            <input type="text" id="advisorName" required placeholder="مثال: علی محمدی" />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> شماره تماس</label>
+                            <input type="tel" id="advisorPhone" required placeholder="۰۹۱۲۳۴۵۶۷۸۹" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> رمز عبور</label>
+                            <input type="text" id="advisorPassword" required placeholder="رمز عبور مشاور" />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-briefcase"></i> تخصص</label>
+                            <input type="text" id="advisorSpecialty" placeholder="مثال: فروش آپارتمان" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> سال سابقه</label>
+                            <input type="text" id="advisorExperience" placeholder="مثال: ۷ سال" />
+                        </div>
+                        <div class="form-group"></div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label><i class="fas fa-image"></i> تصویر پروفایل</label>
+                        <div class="upload-row">
+                            <div class="upload-wrapper">
+                                <button type="button" class="upload-btn">
+                                    <i class="fas fa-cloud-upload-alt"></i> آپلود عکس
+                                </button>
+                                <input type="file" id="advisorImageFile" accept="image/*" />
+                            </div>
+                            <div class="upload-url">
+                                <span>یا</span>
+                                <input type="text" id="advisorImageUrl" placeholder="لینک مستقیم عکس (URL)" />
+                            </div>
+                        </div>
+                        <div id="advisorImagePreview" class="image-preview"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-user-plus"></i> افزودن مشاور
+                        </button>
+                        <button type="reset" class="btn-outline" onclick="this.closest('form').reset(); document.getElementById('advisorImagePreview').innerHTML = '';">
+                            <i class="fas fa-undo"></i> بازنشانی
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- NOTES -->
+            <section id="tab-notes" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-sticky-note"></i> یادداشت‌ها</h2>
+                    <span class="section-tag">مدیریت یادداشت‌ها</span>
+                </div>
+                <div class="notes-container">
+                    <div class="notes-form-card">
+                        <h3 class="card-title"><i class="fas fa-pen"></i> یادداشت جدید</h3>
+                        <form class="notes-form" id="noteForm" onsubmit="saveNote(); return false;">
+                            <div class="form-group">
+                                <label for="noteTitle">عنوان یادداشت</label>
+                                <input type="text" id="noteTitle" placeholder="عنوان یادداشت را وارد کنید..." />
+                            </div>
+                            <div class="form-group">
+                                <label for="noteContent">متن یادداشت</label>
+                                <textarea id="noteContent" rows="4" placeholder="متن یادداشت را وارد کنید..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> ذخیره یادداشت
+                            </button>
+                        </form>
+                    </div>
+                    <div class="notes-list-card">
+                        <h3 class="card-title"><i class="fas fa-list"></i> یادداشت‌های من</h3>
+                        <div id="notesList" class="notes-list-items"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACTS -->
+            <section id="tab-contacts" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-address-book"></i> مخاطبین</h2>
+                    <span class="section-tag">مدیریت مخاطبین</span>
+                </div>
+                <div class="contacts-container">
+                    <div class="contacts-form-card">
+                        <h3 class="card-title"><i class="fas fa-user-plus"></i> افزودن مخاطب جدید</h3>
+                        <form class="contacts-form" id="contactForm" onsubmit="addContact(); return false;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contactName">نام کامل</label>
+                                    <input type="text" id="contactName" placeholder="مثال: احمد رضایی" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactPhone">شماره تماس</label>
+                                    <input type="tel" id="contactPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contactAdvisor">مشاور</label>
+                                    <select id="contactAdvisor">
+                                        <option value="">انتخاب مشاور</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactDesc">توضیحات</label>
+                                    <input type="text" id="contactDesc" placeholder="مثال: مشتری خرید آپارتمان" />
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-user-plus"></i> افزودن مخاطب
+                            </button>
+                        </form>
+                    </div>
+                    <div class="contacts-list-card">
+                        <h3 class="card-title"><i class="fas fa-list"></i> لیست مخاطبین</h3>
+                        <div class="contacts-search">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="contactSearch" placeholder="جستجوی مخاطب..." onkeyup="searchContacts()" />
+                        </div>
+                        <div id="contactsList" class="contacts-list-items"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REQUESTS -->
+            <section id="tab-requests" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-handshake"></i> درخواست‌ها</h2>
+                    <span class="badge-count" id="requestsCount" style="background:var(--green-primary);color:var(--white);padding:2px 12px;border-radius:12px;font-size:11px;">۰</span>
+                </div>
+                <div class="table-container">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>تاریخ</th>
+                                    <th>نام</th>
+                                    <th>شماره</th>
+                                    <th>نوع</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requestsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BACKUP -->
+            <section id="tab-backup" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-database"></i> بکاپ و بازیابی</h2>
+                </div>
+                <div class="backup-grid">
+                    <div class="backup-card">
+                        <i class="fas fa-download"></i>
+                        <h4>بکاپ دستی</h4>
+                        <p>گرفتن نسخه پشتیبان از تمام اطلاعات</p>
+                        <button class="btn-primary" onclick="createBackup()">
+                            <i class="fas fa-database"></i> گرفتن بکاپ
+                        </button>
+                    </div>
+                    <div class="backup-card">
+                        <i class="fas fa-upload"></i>
+                        <h4>بازگردانی</h4>
+                        <p>بازیابی اطلاعات از فایل بکاپ</p>
+                        <input type="file" id="restoreFile" accept=".json" style="display:none;" onchange="restoreBackup(event)" />
+                        <button class="btn-outline" onclick="document.getElementById('restoreFile').click()">
+                            <i class="fas fa-undo"></i> انتخاب فایل
+                        </button>
+                    </div>
+                    <div class="backup-card">
+                        <i class="fas fa-clock"></i>
+                        <h4>بکاپ خودکار</h4>
+                        <p>هر روز ساعت ۲۴:۰۰ به‌صورت خودکار</p>
+                        <span class="badge-success"><i class="fas fa-check-circle"></i> فعال</span>
+                    </div>
+                </div>
+                <div class="backup-list">
+                    <h4><i class="fas fa-history"></i> بکاپ‌های موجود</h4>
+                    <div id="backupList"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="admin-footer">
+        <div class="container">
+            <p>© ۲۰۲۶ <strong>املاک اخلاصی</strong> — پنل مدیریت</p>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userType = localStorage.getItem('realestate_user_type');
+            const advisorName = localStorage.getItem('realestate_advisor_name');
+            const displayEl = document.getElementById('adminUserDisplay');
+            if (userType === 'advisor' && advisorName) {
+                displayEl.innerHTML = `<i class="fas fa-user-tie"></i> ${advisorName} (مشاور)`;
+            }
+            togglePriceFields();
+            populateAdvisorSelect();
+            populateContactAdvisorSelect();
+            renderAdminProperties();
+            renderAdvisors();
+            renderNotes();
+            renderContacts();
+            renderRequests();
+            renderBackupList();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
