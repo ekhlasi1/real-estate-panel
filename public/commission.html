@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>محاسبه کمیسیون | املاک اخلاصی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@v5.0/fonts/IRANSansWeb.woff2" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+    <header class="header" id="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-crown"></i>
+                <span>املاک <strong>اخلاصی</strong></span>
+            </a>
+            <nav class="nav" id="mainNav">
+                <a href="/#properties">ملک‌ها</a>
+                <a href="/#advisors">مشاورین</a>
+                <a href="/c" class="active">کمیسیون</a>
+                <a href="/request.html">کارشناسی</a>
+                <a href="/#contact">تماس</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-outline-sm" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-user"></i> ورود
+                </button>
+                <button class="btn-primary" onclick="window.location.href='/login.html'">
+                    <i class="fas fa-plus-circle"></i> ثبت آگهی
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="commission-page">
+        <div class="container">
+            <div class="commission-wrapper">
+                <div class="commission-header">
+                    <span class="tag">💎 ماشین حساب حرفه‌ای</span>
+                    <h1>محاسبه <span>کمیسیون</span> اجاره</h1>
+                    <p>کمیسیون را به‌صورت دقیق و لحظه‌ای محاسبه کنید</p>
+                </div>
+                <div class="commission-box">
+                    <div class="commission-form">
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill-wave"></i> مبلغ رهن (تومان)</label>
+                            <input type="text" id="commissionRentPage" placeholder="مثال: ۵۰,۰۰۰,۰۰۰" class="number-input" />
+                            <div class="input-hint">تا ۵۰ میلیون تومان: ۲٪ | مازاد: ۱٪</div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> اجاره ماهانه (تومان)</label>
+                            <input type="text" id="commissionMonthlyPage" placeholder="مثال: ۲,۵۰۰,۰۰۰" class="number-input" />
+                            <div class="input-hint">کمیسیون اجاره = (اجاره × ۲) ÷ ۳</div>
+                        </div>
+                        <button type="button" class="btn-primary full" onclick="calculateCommissionPage()">
+                            <i class="fas fa-calculator"></i> محاسبه کمیسیون
+                        </button>
+                    </div>
+                    <div class="commission-result" id="commissionPageResult" style="display:none;">
+                        <div class="result-header">
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>نتیجه محاسبه</h3>
+                        </div>
+                        <div class="result-grid">
+                            <div class="result-item total">
+                                <span class="label">کل کمیسیون</span>
+                                <span class="value" id="resultTotalPage">۰</span>
+                            </div>
+                            <div class="result-item owner">
+                                <span class="label"><i class="fas fa-user-tie"></i> سهم موجر</span>
+                                <span class="value" id="resultOwnerPage">۰</span>
+                            </div>
+                            <div class="result-item tenant">
+                                <span class="label"><i class="fas fa-user"></i> سهم مستاجر</span>
+                                <span class="value" id="resultTenantPage">۰</span>
+                            </div>
+                        </div>
+                        <div class="result-details" id="resultDetailsPage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo"><i class="fas fa-crown"></i> املاک <strong>اخلاصی</strong></a>
+                    <p>با تجربه، تخصص و تعهد همراه شما</p>
+                </div>
+                <div class="footer-links">
+                    <h4>دسترسی سریع</h4>
+                    <a href="/#properties">ملک‌ها</a>
+                    <a href="/#advisors">مشاورین</a>
+                    <a href="/c">کمیسیون</a>
+                    <a href="/request.html">کارشناسی</a>
+                    <a href="/#contact">تماس</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>تماس با ما</h4>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۹۷۷۴۷۰۴</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۷۶۰۶۸۶۱</p>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۷۳۶۶۸۵۲۵</p>
+                    <p><i class="fas fa-envelope"></i> info@ekhlasi-realestate.ir</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© ۲۰۲۶ <strong>املاک اخلاصی</strong>. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

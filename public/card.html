@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>کارت ویزیت مشاور | املاک اخلاصی</title>
+<meta name="robots" content="noindex" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Lalezar&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --black:#0a0a0f;
+    --panel:#111116;
+    --gold:#c9a84c;
+    --gold-light:#e8d48a;
+    --gold-dark:#a8892e;
+    --gold-gradient:linear-gradient(135deg,#d4b85a,#f2e29c,#d4b85a);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Vazirmatn',sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1a1a22,#050507 70%);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 16px 60px;
+    color:#eee;
+  }
+
+  /* ===== business card ===== */
+  .card{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    aspect-ratio:1.75/1;
+    background:var(--black);
+    border-radius:22px;
+    border:1px solid rgba(201,168,76,.55);
+    box-shadow:0 20px 50px rgba(0,0,0,.55), 0 0 40px rgba(201,168,76,.08);
+    overflow:hidden;
+  }
+  .card svg{position:absolute;inset:0;width:100%;height:100%;}
+  .card-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:8% 6% 8% 7%;
+    width:64%;
+  }
+  .card-name-fa{
+    font-family:'Lalezar',cursive;
+    font-size:clamp(26px,7.5vw,34px);
+    background:var(--gold-gradient);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    line-height:1.25;
+    letter-spacing:.5px;
+  }
+  .card-name-en{
+    margin-top:8px;
+    font-size:clamp(12px,3.2vw,15px);
+    letter-spacing:3px;
+    color:var(--gold-light);
+    font-weight:400;
+    direction:ltr;
+    text-align:right;
+  }
+  .card-divider{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:12px 0;
+  }
+  .card-divider span{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);}
+  .card-divider i{color:var(--gold);font-size:6px;transform:rotate(45deg);}
+  .card-specialty{
+    font-size:clamp(10px,2.6vw,12px);
+    color:#a9a9b4;
+    margin-bottom:10px;
+  }
+  .card-phone{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#f2f2f5;
+    width:fit-content;
+  }
+  .card-phone .icon{
+    width:30px;height:30px;border-radius:50%;
+    border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);
+    font-size:12px;
+    flex-shrink:0;
+  }
+  .card-phone .num{
+    font-size:clamp(14px,3.6vw,18px);
+    letter-spacing:1px;
+    direction:ltr;
+  }
+  .card-monogram{
+    position:absolute;
+    z-index:2;
+    right:8%;
+    top:0;
+    bottom:0;
+    display:flex;
+    align-items:center;
+    font-family:'Lalezar',cursive;
+    font-size:clamp(40px,11vw,64px);
+    background:var(--gold-gradient);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+  }
+
+  /* ===== actions below card ===== */
+  .actions{
+    width:100%;
+    max-width:420px;
+    margin-top:28px;
+  }
+  .call-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    background:var(--gold-gradient);
+    color:#1a1508;
+    font-weight:700;
+    font-size:15px;
+    text-decoration:none;
+    box-shadow:0 8px 24px rgba(201,168,76,.18);
+  }
+  .save-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    background:transparent;
+    border:1px solid rgba(201,168,76,.5);
+    color:var(--gold-light);
+    font-weight:600;
+    font-size:14px;
+    margin-top:10px;
+    cursor:pointer;
+    font-family:inherit;
+  }
+
+  .qr-section{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:26px;
+  }
+  .qr-box{
+    background:var(--panel);
+    border:1px solid rgba(201,168,76,.25);
+    border-radius:16px;
+    padding:16px 10px 14px;
+    text-align:center;
+  }
+  .qr-box .qr-canvas{
+    background:#fff;
+    border-radius:10px;
+    padding:8px;
+    display:inline-block;
+    line-height:0;
+  }
+  .qr-box .qr-title{
+    margin-top:10px;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--gold-light);
+  }
+  .qr-box .qr-sub{
+    margin-top:2px;
+    font-size:10.5px;
+    color:#8b8b96;
+    line-height:1.5;
+  }
+
+  .footer-note{
+    margin-top:26px;
+    font-size:11px;
+    color:#5c5c66;
+    text-align:center;
+  }
+
+  /* ===== states ===== */
+  .state{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    color:#a9a9b4;
+    padding:60px 20px;
+    text-align:center;
+  }
+  .state i{font-size:30px;color:var(--gold);}
+  .spin{animation:spin 1s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  @media (max-width:380px){
+    .qr-box .qr-canvas img, .qr-box .qr-canvas canvas{width:96px !important;height:96px !important;}
+  }
+</style>
+</head>
+<body>
+
+  <div id="loadingState" class="state">
+    <i class="fas fa-circle-notch spin"></i>
+    <span>در حال بارگذاری کارت مشاور...</span>
+  </div>
+
+  <div id="errorState" class="state" style="display:none;">
+    <i class="fas fa-triangle-exclamation"></i>
+    <span>مشاوری با این شماره صفحه یافت نشد.</span>
+  </div>
+
+  <div id="cardWrap" style="display:none;width:100%;max-width:420px;">
+    <div class="card">
+      <svg viewBox="0 0 700 400" preserveAspectRatio="none">
+        <defs>
+          <pattern id="diamondPattern" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+            <rect width="26" height="26" fill="#111114"/>
+            <path d="M13 0 L26 13 L13 26 L0 13 Z" fill="none" stroke="#1c1c22" stroke-width="1"/>
+          </pattern>
+          <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4b85a"/>
+            <stop offset="50%" stop-color="#f2e29c"/>
+            <stop offset="100%" stop-color="#a8892e"/>
+          </linearGradient>
+        </defs>
+        <path d="M 430,0 C 340,90 500,160 410,200 C 340,232 500,300 430,400 L 700,400 L 700,0 Z" fill="url(#diamondPattern)"/>
+        <path d="M 400,-10 C 300,90 470,150 380,200 C 300,240 470,310 400,410" fill="none" stroke="url(#goldStroke)" stroke-width="3"/>
+        <path d="M 425,-10 C 320,95 490,155 400,200 C 320,245 490,305 425,410" fill="none" stroke="url(#goldStroke)" stroke-width="1.5" opacity="0.7"/>
+      </svg>
+
+      <div class="card-monogram" id="cardMonogram"></div>
+
+      <div class="card-content">
+        <div class="card-name-fa" id="cardNameFa"></div>
+        <div class="card-name-en" id="cardNameEn"></div>
+        <div class="card-divider"><span></span><i class="fas fa-diamond"></i><span></span></div>
+        <div class="card-specialty" id="cardSpecialty"></div>
+        <a class="card-phone" id="cardPhoneLink" href="#">
+          <span class="icon"><i class="fas fa-phone"></i></span>
+          <span class="num" id="cardPhoneNum"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="call-btn" id="callBtn" href="#"><i class="fas fa-phone"></i> تماس با مشاور</a>
+      <button class="save-btn" id="saveVcfBtn"><i class="fas fa-user-plus"></i> ذخیره مستقیم در مخاطبین گوشی</button>
+
+      <div class="qr-section">
+        <div class="qr-box">
+          <div class="qr-canvas" id="qrContact"></div>
+          <div class="qr-title">افزودن به مخاطبین</div>
+          <div class="qr-sub">با اسکن، اطلاعات تماس مشاور به‌طور مستقیم به گوشی شما اضافه می‌شود</div>
+        </div>
+        <div class="qr-box">
+          <div class="qr-canvas" id="qrPage"></div>
+          <div class="qr-title">لینک این کارت</div>
+          <div class="qr-sub">اسکن کنید تا همین صفحه روی گوشی شما باز شود</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">املاک اخلاصی</div>
+  </div>
+
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const n = params.get('n');
+
+  const loadingState = document.getElementById('loadingState');
+  const errorState = document.getElementById('errorState');
+  const cardWrap = document.getElementById('cardWrap');
+
+  function escapeHtml(str){
+    return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  // Build initials for the monogram from englishName, falling back to the Persian name.
+  function getInitials(advisor){
+    const src = (advisor.englishName || advisor.name || '').trim();
+    const parts = src.split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return '';
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+  }
+
+  function normalizePhone(phone){
+    let p = (phone || '').replace(/[^\d+]/g, '');
+    if (p.startsWith('0')) p = '+98' + p.slice(1);
+    return p;
+  }
+
+  function buildVCard(advisor){
+    const lines = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      `FN:${advisor.name || ''}`,
+      advisor.englishName ? `N:;${advisor.englishName};;;` : '',
+      `TEL;TYPE=CELL:${normalizePhone(advisor.phone)}`,
+      advisor.specialty ? `TITLE:${advisor.specialty}` : '',
+      'ORG:املاک اخلاصی',
+      'END:VCARD'
+    ].filter(Boolean);
+    return lines.join('\n');
+  }
+
+  function renderQR(elId, text, size){
+    const el = document.getElementById(elId);
+    el.innerHTML = '';
+    new QRCode(el, {
+      text: text,
+      width: size,
+      height: size,
+      colorDark: '#0a0a0f',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+
+  function render(advisor){
+    loadingState.style.display = 'none';
+    cardWrap.style.display = 'block';
+
+    document.getElementById('cardNameFa').textContent = advisor.name || '';
+    document.getElementById('cardNameEn').textContent = (advisor.englishName || '').toUpperCase();
+    document.getElementById('cardSpecialty').textContent = advisor.specialty || 'مشاور املاک';
+    document.getElementById('cardPhoneNum').textContent = advisor.phone || '';
+    document.getElementById('cardMonogram').textContent = getInitials(advisor);
+
+    const telHref = 'tel:' + normalizePhone(advisor.phone);
+    document.getElementById('cardPhoneLink').href = telHref;
+    document.getElementById('callBtn').href = telHref;
+
+    document.title = (advisor.name || 'مشاور') + ' | کارت ویزیت';
+
+    // QR 1: vCard -> scanning adds the advisor straight to the scanning phone's contacts
+    renderQR('qrContact', buildVCard(advisor), 120);
+
+    // QR 2: this page's own URL -> for print/sharing, opens this same card page
+    renderQR('qrPage', location.href.split('?')[0], 120);
+
+    // Manual "save to contacts" button -> downloads a .vcf file directly
+    document.getElementById('saveVcfBtn').addEventListener('click', function(){
+      const blob = new Blob([buildVCard(advisor)], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = (advisor.englishName || advisor.name || 'contact').replace(/\s+/g, '-') + '.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  function showError(){
+    loadingState.style.display = 'none';
+    errorState.style.display = 'flex';
+  }
+
+  if (!n) { showError(); return; }
+
+  fetch('/api/advisors/public')
+    .then(r => r.json())
+    .then(advisors => {
+      let advisor = advisors.find(a => String(a.cardNumber) === String(n));
+      if (!advisor) advisor = advisors[parseInt(n, 10) - 1];
+      if (!advisor) { showError(); return; }
+      render(advisor);
+    })
+    .catch(showError);
+})();
+</script>
+</body>
+</html>
