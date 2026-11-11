@@ -1,4 +1,0 @@
-git checkout main
-git pull origin main
-git merge realstate-new-version
-git push origin main
