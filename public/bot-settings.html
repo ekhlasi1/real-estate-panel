@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تنظیمات ربات تلگرام | املاک اخلاصی</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+.bot-settings{max-width:900px;margin:110px auto 40px;padding:24px}.bot-card{background:#151515;border:1px solid #b99143;border-radius:20px;padding:28px;box-shadow:0 15px 50px #0005}.bot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.bot-field{display:flex;flex-direction:column;gap:8px}.bot-field.full{grid-column:1/-1}.bot-field label{color:#e2bd68;font-weight:700}.bot-field input,.bot-field textarea{width:100%;box-sizing:border-box;border:1px solid #555;border-radius:10px;background:#222;color:#fff;padding:13px;font:inherit}.bot-help{color:#aaa;line-height:2}.bot-badge{display:inline-block;background:#2d8a62;color:#fff;padding:6px 12px;border-radius:30px}.bot-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}@media(max-width:650px){.bot-grid{grid-template-columns:1fr}.bot-field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<main class="bot-settings"><section class="bot-card">
+<span class="bot-badge">تنظیمات مدیریت</span><h1>ربات تلگرام املاک اخلاصی</h1>
+<p class="bot-help">اطلاعات ربات را تنظیم کنید. توکن در این صفحه ذخیره یا نمایش داده نمی‌شود. مقدار توکن باید با نام <b>TELEGRAM_BOT_TOKEN</b> در تنظیمات Worker موجود باشد.</p>
+<form id="botSettingsForm"><div class="bot-grid">
+<div class="bot-field"><label for="groupTitle">عنوان گروه</label><input id="groupTitle" value="گروه مشاورین املاک اخلاصی"></div>
+<div class="bot-field"><label for="groupUrl">لینک گروه</label><input id="groupUrl" type="url" placeholder="https://t.me/..."></div>
+<div class="bot-field full"><label for="adminIds">شناسه عددی مدیران</label><input id="adminIds" placeholder="123456789,987654321"></div>
+<div class="bot-field full"><label for="propertyFields">فیلدهای فرم ثبت ملک</label><textarea id="propertyFields" rows="4">عنوان ملک، نوع معامله، نوع ملک، قیمت، رهن، اجاره، متراژ، تعداد اتاق، منطقه، شماره تماس، توضیحات، عکس</textarea></div>
+</div><div class="bot-actions"><button class="btn-primary" type="submit">ذخیره تنظیمات</button><a class="btn-outline" href="/admin.html">بازگشت به مدیریت</a></div><p id="status" class="bot-help"></p></form>
+</section></main>
+<script>
+const key='realestate_bot_settings';const form=document.querySelector('#botSettingsForm');const saved=JSON.parse(localStorage.getItem(key)||'{}');for(const id of ['groupTitle','groupUrl','adminIds','propertyFields'])if(saved[id])document.querySelector('#'+id).value=saved[id];form.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(['groupTitle','groupUrl','adminIds','propertyFields'].map(id=>[id,document.querySelector('#'+id).value.trim()]));localStorage.setItem(key,JSON.stringify(data));document.querySelector('#status').textContent='تنظیمات این مرورگر ذخیره شد.';});
+</script>
+</body></html>
