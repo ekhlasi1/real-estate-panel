@@ -5,9 +5,9 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "deploy": "wrangler deploy",
+    "deploy": "node scripts/ensure-kv.mjs && wrangler deploy",
     "dev": "wrangler dev",
-    "check": "node --check src/index.js",
+    "check": "node --check src/index.js && node --check scripts/ensure-kv.mjs",
     "test": "node --test"
   },
   "devDependencies": {
