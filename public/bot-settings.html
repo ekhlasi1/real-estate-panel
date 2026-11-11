@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تنظیمات ربات تلگرام | املاک اخلاصی</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+.bot-settings{max-width:900px;margin:110px auto 40px;padding:24px}.bot-card{background:#151515;border:1px solid #b99143;border-radius:20px;padding:28px;box-shadow:0 15px 50px #0005}.bot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.bot-field{display:flex;flex-direction:column;gap:8px}.bot-field.full{grid-column:1/-1}.bot-field label{color:#e2bd68;font-weight:700}.bot-field input,.bot-field textarea{width:100%;box-sizing:border-box;border:1px solid #555;border-radius:10px;background:#222;color:#fff;padding:13px;font:inherit}.bot-help{color:#aaa;line-height:2}.bot-badge{display:inline-block;background:#2d8a62;color:#fff;padding:6px 12px;border-radius:30px}.bot-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}@media(max-width:650px){.bot-grid{grid-template-columns:1fr}.bot-field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<main class="bot-settings"><section class="bot-card">
+<span class="bot-badge">تنظیمات مدیریت</span><h1>ربات تلگرام املاک اخلاصی</h1>
+<p class="bot-help">اطلاعات ربات در KV مشترک پروژه ذخیره می‌شود. توکن در این صفحه ذخیره یا نمایش داده نمی‌شود.</p>
+<form id="botSettingsForm"><div class="bot-grid">
+<div class="bot-field"><label for="groupTitle">عنوان گروه</label><input id="groupTitle" value="گروه مشاورین املاک اخلاصی"></div>
+<div class="bot-field"><label for="groupUrl">لینک گروه</label><input id="groupUrl" type="url" placeholder="https://t.me/..."></div>
+<div class="bot-field full"><label for="adminIds">شناسه عددی مدیران</label><input id="adminIds" placeholder="123456789,987654321"></div>
+<div class="bot-field full"><label for="propertyFields">فیلدهای فرم ثبت ملک</label><textarea id="propertyFields" rows="4">عنوان ملک، نوع معامله، نوع ملک، قیمت، رهن، اجاره، متراژ، تعداد اتاق، منطقه، شماره تماس، توضیحات، عکس</textarea></div>
+</div><div class="bot-actions"><button class="btn-primary" type="submit">ذخیره تنظیمات</button><a class="btn-outline" href="/admin.html">بازگشت به مدیریت</a></div><p id="status" class="bot-help" role="status"></p></form>
+</section></main>
+<script>
+const fields=['groupTitle','groupUrl','adminIds','propertyFields'];
+const status=document.querySelector('#status');
+const setStatus=(text,ok=false)=>{status.textContent=text;status.style.color=ok?'#78d6a4':'#ffb4b4'};
+const apply=(data={})=>fields.forEach(id=>{if(data[id] != null) document.querySelector('#'+id).value=data[id]});
+async function load(){try{const response=await fetch('/api/bot-settings',{cache:'no-store'});if(!response.ok)throw new Error('load');apply(await response.json())}catch(error){setStatus('دریافت تنظیمات انجام نشد. اتصال Worker را بررسی کنید.')}}
+document.querySelector('#botSettingsForm').addEventListener('submit',async event=>{event.preventDefault();const data=Object.fromEntries(fields.map(id=>[id,document.querySelector('#'+id).value.trim()]));try{const response=await fetch('/api/bot-settings',{method:'PUT',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify(data)});if(!response.ok)throw new Error('save');setStatus('تنظیمات در KV ذخیره شد.',true)}catch(error){setStatus('ذخیره تنظیمات انجام نشد. اتصال Worker را بررسی کنید.')}});
+load();
+</script>
+</body></html>
