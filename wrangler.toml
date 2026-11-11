@@ -9,10 +9,9 @@ not_found_handling = "single-page-application"
 
 [[kv_namespaces]]
 binding = "KV"
-id = "e821eeeb163344c9a253f9af10139716"
+id = "00000000000000000000000000000000"
 
 [vars]
-GITHUB_TOKEN = "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"
 GITHUB_REPO = "ekhlasi1/real-estate-panel"
 GITHUB_BRANCH = "main"
 TELEGRAM_GROUP_URL = ""
