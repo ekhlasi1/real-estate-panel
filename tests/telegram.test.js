@@ -13,8 +13,9 @@ test("property fields match the website workflow", () => {
   assert.deepEqual(propertyFields(), ["title", "dealType", "propertyType", "price", "rent", "area", "rooms", "location", "phone", "description", "photo"]);
 });
 
-test("Telegram menu is button based", () => {
+test("Telegram menu is button based and includes cancellation", () => {
   const menu = telegramMenu();
   assert.equal(menu.resize_keyboard, true);
   assert.equal(menu.keyboard.length, 2);
+  assert.equal(menu.keyboard[1].length, 2);
 });
