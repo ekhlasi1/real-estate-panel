@@ -11,15 +11,21 @@
 <body>
 <main class="bot-settings"><section class="bot-card">
 <span class="bot-badge">تنظیمات مدیریت</span><h1>ربات تلگرام املاک اخلاصی</h1>
-<p class="bot-help">اطلاعات ربات را تنظیم کنید. توکن در این صفحه ذخیره یا نمایش داده نمی‌شود. مقدار توکن باید با نام <b>TELEGRAM_BOT_TOKEN</b> در تنظیمات Worker موجود باشد.</p>
+<p class="bot-help">اطلاعات ربات در KV مشترک پروژه ذخیره می‌شود. توکن در این صفحه ذخیره یا نمایش داده نمی‌شود.</p>
 <form id="botSettingsForm"><div class="bot-grid">
 <div class="bot-field"><label for="groupTitle">عنوان گروه</label><input id="groupTitle" value="گروه مشاورین املاک اخلاصی"></div>
 <div class="bot-field"><label for="groupUrl">لینک گروه</label><input id="groupUrl" type="url" placeholder="https://t.me/..."></div>
 <div class="bot-field full"><label for="adminIds">شناسه عددی مدیران</label><input id="adminIds" placeholder="123456789,987654321"></div>
 <div class="bot-field full"><label for="propertyFields">فیلدهای فرم ثبت ملک</label><textarea id="propertyFields" rows="4">عنوان ملک، نوع معامله، نوع ملک، قیمت، رهن، اجاره، متراژ، تعداد اتاق، منطقه، شماره تماس، توضیحات، عکس</textarea></div>
-</div><div class="bot-actions"><button class="btn-primary" type="submit">ذخیره تنظیمات</button><a class="btn-outline" href="/admin.html">بازگشت به مدیریت</a></div><p id="status" class="bot-help"></p></form>
+</div><div class="bot-actions"><button class="btn-primary" type="submit">ذخیره تنظیمات</button><a class="btn-outline" href="/admin.html">بازگشت به مدیریت</a></div><p id="status" class="bot-help" role="status"></p></form>
 </section></main>
 <script>
-const key='realestate_bot_settings';const form=document.querySelector('#botSettingsForm');const saved=JSON.parse(localStorage.getItem(key)||'{}');for(const id of ['groupTitle','groupUrl','adminIds','propertyFields'])if(saved[id])document.querySelector('#'+id).value=saved[id];form.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(['groupTitle','groupUrl','adminIds','propertyFields'].map(id=>[id,document.querySelector('#'+id).value.trim()]));localStorage.setItem(key,JSON.stringify(data));document.querySelector('#status').textContent='تنظیمات این مرورگر ذخیره شد.';});
+const fields=['groupTitle','groupUrl','adminIds','propertyFields'];
+const status=document.querySelector('#status');
+const setStatus=(text,ok=false)=>{status.textContent=text;status.style.color=ok?'#78d6a4':'#ffb4b4'};
+const apply=(data={})=>fields.forEach(id=>{if(data[id] != null) document.querySelector('#'+id).value=data[id]});
+async function load(){try{const response=await fetch('/api/bot-settings',{cache:'no-store'});if(!response.ok)throw new Error('load');apply(await response.json())}catch(error){setStatus('دریافت تنظیمات انجام نشد. اتصال Worker را بررسی کنید.')}}
+document.querySelector('#botSettingsForm').addEventListener('submit',async event=>{event.preventDefault();const data=Object.fromEntries(fields.map(id=>[id,document.querySelector('#'+id).value.trim()]));try{const response=await fetch('/api/bot-settings',{method:'PUT',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify(data)});if(!response.ok)throw new Error('save');setStatus('تنظیمات در KV ذخیره شد.',true)}catch(error){setStatus('ذخیره تنظیمات انجام نشد. اتصال Worker را بررسی کنید.')}});
+load();
 </script>
 </body></html>
